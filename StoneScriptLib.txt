@@ -1,0 +1,4 @@
+var __internal = import StoneScriptLib/__Internal
+__internal.__Import()
+
+var System = __internal.System

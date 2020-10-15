@@ -1,0 +1,23 @@
+/// @version=1
+
+//////////////////
+/// Namespaces ///
+//////////////////
+
+/////////////
+/// Types ///
+/////////////
+
+var Console = import StoneScriptLib/System/Console
+
+var Float = import StoneScriptLib/System/Float
+func __new_Float()
+  return new StoneScriptLib/System/FloatInst
+
+//////////////
+/// Import ///
+//////////////
+
+func __Import()
+  Console.__Import()
+  Float.__Import()

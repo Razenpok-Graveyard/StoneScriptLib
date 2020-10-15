@@ -1,0 +1,53 @@
+///////////////
+/// Imports ///
+///////////////
+
+var StoneScriptLib = null
+var System = null
+var Float = null
+
+func __Import()
+  StoneScriptLib = import StoneScriptLib/__Internal
+  System = StoneScriptLib.System
+  Float = System.Float
+
+/////////////////////
+/// Static Fields ///
+/////////////////////
+
+///////////////////
+/// Constructor ///
+///////////////////
+
+func _New(value)
+  var float = System.__new_Float()
+  float._value = value
+  return float
+
+func New(value)
+  var float = System.__new_Float()
+  float.__ctor(value)
+  return float
+
+///////////////////////////////
+/// Public Static Functions ///
+///////////////////////////////
+
+func FromInt(value)
+  var float = System.__new_Float()
+  float._FromInt(value)
+  return float
+
+func FromString(value)
+  var float = System.__new_Float()
+  float._FromString(value)
+  return float
+
+func FromFloat(value)
+  var float = System.__new_Float()
+  float._FromFloat(value)
+  return float
+
+////////////////////////////////
+/// Private Static Functions ///
+////////////////////////////////

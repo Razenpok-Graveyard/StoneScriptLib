@@ -1,0 +1,8 @@
+var StoneScriptLib = import StoneScriptLib/StoneScriptLib
+var Console = StoneScriptLib.System.Console
+var Float = StoneScriptLib.System.Float
+
+var float = Float.New("1.1")
+float = float.Add("-1.1")
+
+Console.WriteLine(float)

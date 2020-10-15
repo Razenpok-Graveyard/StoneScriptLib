@@ -1,0 +1,18 @@
+/// @version=1
+
+//////////////////
+/// Namespaces ///
+//////////////////
+
+var System = import StoneScriptLib/System/__Internal
+
+/////////////
+/// Types ///
+/////////////
+
+//////////////
+/// Import ///
+//////////////
+
+func __Import()
+  System.__Import()
