@@ -11,21 +11,42 @@ var StoneScriptLib = import StoneScriptLib/StoneScriptLib
 ////////////
 
 func GetType()
-  return StoneScriptLib.%CLASS%
+  return StoneScriptLib.System.LinkedListNode
 
 //////////////
 /// Fields ///
 //////////////
+
+var _list = null
+var _next = null
+var _previous = null
+var _value = null
 
 ///////////////////
 /// Constructor ///
 ///////////////////
 
 func __ctor(value)
+  _value = value
 
 /////////////////////////
 /// Public Properties ///
 /////////////////////////
+
+func GetList()
+  return _list
+
+func GetNext()
+  return _next
+
+func GetPrevious()
+  return _previous
+
+func GetValue()
+  return _value
+
+func SetValue(value)
+  _value = value
 
 ////////////////////////
 /// Public Functions ///

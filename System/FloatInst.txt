@@ -1,8 +1,11 @@
+/// @version=1
+
 ///////////////
 /// Imports ///
 ///////////////
 
 var StoneScriptLib = import StoneScriptLib/StoneScriptLib
+var TypeCheck = StoneScriptLib.System.TypeCheck
 var Float = StoneScriptLib.System.Float
 
 ////////////
@@ -23,17 +26,21 @@ var _value = 0
 ///////////////////
 
 func __ctor(value)
-  ?Type(value) = "null"
+  ?TypeCheck.IsNull(value)
     return
   
-  :?Type(value) = "int"
+  :?TypeCheck.IsInt(value)
     _FromInt(value)
   
-  :?Type(value) = "string"
+  :?TypeCheck.IsString(value)
     _FromString(value)
   
-  :?value.GetType() = Float
-    _FromFloat(value)  
+  :?TypeCheck.IsType(value, Float)
+    _FromFloat(value)
+
+/////////////////////////
+/// Public Properties ///
+/////////////////////////
 
 ////////////////////////
 /// Public Functions ///
@@ -131,4 +138,4 @@ func _FromString(value)
     _value = integer * 100 + decimal
 
 func _FromFloat(value)
-  return _value = value._value
+  _value = value._value

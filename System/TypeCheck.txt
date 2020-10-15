@@ -1,0 +1,71 @@
+/// @version=1
+
+///////////////
+/// Imports ///
+///////////////
+
+var StoneScriptLib = null
+
+func __Import()
+  StoneScriptLib = import StoneScriptLib/__Internal
+
+/////////////////////
+/// Static Fields ///
+/////////////////////
+
+////////////////////////////////
+/// Public Static Properties ///
+////////////////////////////////
+
+///////////////////////////////
+/// Public Static Functions ///
+///////////////////////////////
+
+func IsInt(value)
+  ?Type(value) = "int"
+    return true
+  :
+    return false
+
+func IsNotInt(value)
+  return IsInt(value) = false
+
+func IsString(value)
+  ?Type(value) = "string"
+    return true
+  :
+    return false
+
+func IsNotInt(value)
+  return IsString(value) = false
+
+func IsNull(value)
+  ?Type(value) = "null"
+    return true
+  :
+    return false
+
+func IsNotNull(value)
+  return IsNull(value) = false
+
+func IsObject(value)
+  ?Type(value) = "object"
+    return true
+  :
+    return false
+
+func IsNotObject(value)
+  return IsObject(value) = false
+
+func IsType(value, type)
+  ?Type(value) = "object" & value.GetType() = type
+    return true
+  :
+    return false
+
+func IsNotType(value, type)
+  return IsType(value, type) = false
+
+////////////////////////////////
+/// Private Static Functions ///
+////////////////////////////////

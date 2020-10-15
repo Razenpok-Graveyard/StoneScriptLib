@@ -1,0 +1,114 @@
+/// @version=1
+
+///////////////
+/// Imports ///
+///////////////
+
+var StoneScriptLib = import StoneScriptLib/StoneScriptLib
+var LinkedListIterator = StoneScriptLib.System.LinkedListIterator
+var LinkedListNode = StoneScriptLib.System.LinkedListNode
+var TypeCheck = StoneScriptLib.System.TypeCheck
+
+////////////
+/// Type ///
+////////////
+
+func GetType()
+  return StoneScriptLib.System.LinkedList
+
+//////////////
+/// Fields ///
+//////////////
+
+var _count = 0
+var _first = null
+var _last = null
+
+///////////////////
+/// Constructor ///
+///////////////////
+
+/////////////////////////
+/// Public Properties ///
+/////////////////////////
+
+func GetCount()
+  return _count
+
+func GetFirst()
+  return _first
+
+func GetLast()
+  return _last
+
+////////////////////////
+/// Public Functions ///
+////////////////////////
+
+func AddAfter(node, value)
+  var newNode = LinkedListNode.New(value)
+  AddAfterNode(node, newNode)
+
+func AddAfterNode(node, newNode)
+  count++
+  var next = node._next
+  newNode._next = next
+  newNode._previous = node
+  node._next = newNode
+  ?TypeCheck.IsNotNull(next)
+    next._previous = newNode
+
+func AddBefore(node, value)
+  var newNode = LinkedListNode.New(value)
+  AddNodeBefore(node, newNode)
+
+func AddNodeBefore(node, newNode)
+  count++
+  var previous = node._previous
+  newNode._previous = previous
+  newNode._next = node
+  node._previous = newNode
+  ?TypeCheck.IsNotNull(previous)
+    previous._next = newNode
+
+func AddFirst(value)
+  var newNode = LinkedListNode.New(value)
+  AddFirstNode(newNode)
+
+func AddFirstNode(newNode)
+  ?TypeCheck.IsNull(_first)
+    _count++
+    _first = newNode
+    _last = newNode
+    return
+  AddNodeBefore(_first, newNode)
+
+func AddLast(value)
+  var newNode = LinkedListNode.New(value)
+  AddLastNode(newNode)
+
+func AddLastNode(newNode)
+  ?TypeCheck.IsNull(_last)
+    _count++
+    _first = newNode
+    _last = newNode
+    return
+  AddNodeAfter(_last, newNode)
+
+func Clear()
+  _count = 0
+  _first = null
+  _last = null
+
+func GetItemAtIndex(index)
+  var item = _first
+  for i = 0..index
+    item = item.GetNext()
+  return
+
+func GetIterator()
+  return LinkedListIterator.New(this)
+
+/////////////////////////
+/// Private Functions ///
+/////////////////////////

@@ -5,32 +5,33 @@
 ///////////////
 
 var StoneScriptLib = null
+var System = null
 
 func __Import()
   StoneScriptLib = import StoneScriptLib/__Internal
+  System = StoneScriptLib.System
 
 /////////////////////
 /// Static Fields ///
 /////////////////////
 
-var _currentTime = 0
-var _currentLine = 0
+///////////////////
+/// Constructor ///
+///////////////////
+
+func New(list)
+  var iterator = System.__new_LinkedListIterator()
+  iterator.__ctor(list)
+  return iterator
+
+////////////////////////////////
+/// Public Static Properties ///
+////////////////////////////////
 
 ///////////////////////////////
 /// Public Static Functions ///
 ///////////////////////////////
 
-func WriteLine(value)
-  _CheckTime()
-  >`0,@_currentLine@,@value@
-  _currentLine++
-
 ////////////////////////////////
 /// Private Static Functions ///
 ////////////////////////////////
-
-func _CheckTime()
-  ?_currentTime = totaltime
-    return
-  _currentTime = totaltime
-  _currentLine = 0

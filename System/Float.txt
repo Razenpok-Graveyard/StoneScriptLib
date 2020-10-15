@@ -1,3 +1,5 @@
+/// @version=1
+
 ///////////////
 /// Imports ///
 ///////////////
@@ -28,6 +30,10 @@ func New(value)
   var float = System.__new_Float()
   float.__ctor(value)
   return float
+
+////////////////////////////////
+/// Public Static Properties ///
+////////////////////////////////
 
 ///////////////////////////////
 /// Public Static Functions ///
