@@ -1,23 +1,2 @@
-var StoneScriptLib = import StoneScriptLib/StoneScriptLib
-var LinkedList = StoneScriptLib.System.LinkedList
-var Console = StoneScriptLib.System.Console
-var Float = StoneScriptLib.System.Float
-
-
-var list = LinkedList.New()
-var iterator = null
-
-?time % 30 = 0
-    list.AddLast(Float.New("1.1"))
-
-var sum = null
-sum = Float.New(0)
-
-iterator = list.GetIterator()
-for i = 0..list.GetCount()
-  ?iterator.MoveNext()
-    var current = iterator.GetCurrent()
-    sum = sum.Add(current)
-
-Console.WriteLine("Item Count: " + list.GetCount())
-Console.WriteLine("Item Sum: " + sum)
+var runner = import StoneScriptLib/Tests/TestRunner
+runner.Update()

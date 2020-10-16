@@ -1,0 +1,4 @@
+var testClass = null
+var testFunction = null
+var isFailed = false
+var failMessage = null

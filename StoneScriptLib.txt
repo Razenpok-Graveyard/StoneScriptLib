@@ -1,6 +1,17 @@
-/// @version=1
+var __global = import StoneScriptLib/__Global
 
-var __internal = import StoneScriptLib/__Internal
-__internal.__Import()
+var System = __global.System
 
-var System = __internal.System
+var __needsImport = true
+?__needsImport
+  __needsImport = false
+  var namespaces = __global.__namespaces
+  for i = 0..namespaces.Count() - 1
+    var namespace = null
+    namespace = namespaces.Get(i)
+    var classTypes = null
+    classTypes = namespace.__classTypes
+    for j = 0..classTypes.Count() - 1
+      var classType = null
+      classType = classTypes.Get(j)
+      classType.__Import(__global)

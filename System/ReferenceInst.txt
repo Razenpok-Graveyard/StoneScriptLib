@@ -1,5 +1,3 @@
-/// @version=1
-
 ///////////////
 /// Imports ///
 ///////////////
@@ -11,15 +9,12 @@ var StoneScriptLib = import StoneScriptLib/StoneScriptLib
 ////////////
 
 func GetType()
-  return StoneScriptLib.System.LinkedListNode
+  return StoneScriptLib.System.Reference
 
 //////////////
 /// Fields ///
 //////////////
 
-var _list = null
-var _next = null
-var _previous = null
 var _value = null
 
 ///////////////////
@@ -32,15 +27,6 @@ func __ctor(value)
 /////////////////////////
 /// Public Properties ///
 /////////////////////////
-
-func GetList()
-  return _list
-
-func GetNext()
-  return _next
-
-func GetPrevious()
-  return _previous
 
 func GetValue()
   return _value

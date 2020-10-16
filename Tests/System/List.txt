@@ -1,0 +1,1054 @@
+var tests = new StoneScriptLib/__Internal/LinkedList
+
+var StoneScriptLib = import StoneScriptLib/StoneScriptLib
+var List = StoneScriptLib.System.List
+
+///////////
+/// New ///
+///////////
+
+
+func New_list_should_have_no_items(that, Assert)
+  var list = that.List.New()
+
+  Assert.IsZero(list.GetCount())
+
+tests.Add(New_list_should_have_no_items)
+
+
+///////////
+/// Add ///
+///////////
+
+
+func Add_should_increase_count_in_empty_list(that, Assert)
+  var list = that.List.New()
+
+  list.Add(1)
+
+  Assert.AreEqual(1, list.GetCount())
+
+tests.Add(Add_should_increase_count_in_empty_list)
+
+
+func Add_should_increase_count_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+
+  list.Add(2)
+
+  Assert.AreEqual(2, list.GetCount())
+
+tests.Add(Add_should_increase_count_in_non_empty_list)
+
+
+func Add_should_add_item_to_the_end_of_empty_list(that, Assert)
+  var list = that.List.New()
+  var item = 1
+
+  list.Add(item)
+
+  var lastIndex = list.GetCount() - 1
+  Assert.AreEqual(item, list.Get(lastIndex))
+
+tests.Add(Add_should_add_item_to_the_end_of_empty_list)
+
+
+func Add_should_add_item_to_the_end_of_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  var item = 1
+
+  list.Add(1)
+
+  list.Add(item)
+
+  var lastIndex = list.GetCount() - 1
+  Assert.AreEqual(item, list.Get(lastIndex))
+
+tests.Add(Add_should_add_item_to_the_end_of_non_empty_list)
+
+
+///////////
+/// Get ///
+///////////
+
+
+func Get_should_correctly_return_an_item_in_one_item_list(that, Assert)
+  var list = that.List.New()
+  var item = 1
+  list.Add(item)
+
+  var actualItem = list.Get(0)
+
+  Assert.AreEqual(item, actualItem)
+
+tests.Add(Get_should_correctly_return_an_item_in_one_item_list)
+
+
+func Get_should_correctly_return_first_item_in_multi_item_list(that, Assert)
+  var list = that.List.New()
+  var firstItem = 1
+  list.Add(firstItem)
+  list.Add(2)
+  list.Add(3)
+  list.Add(4)
+  list.Add(5)
+
+  var actualItem = list.Get(0)
+
+  Assert.AreEqual(firstItem, actualItem)
+
+tests.Add(Get_should_correctly_return_first_item_in_multi_item_list)
+
+
+func Get_should_correctly_return_last_item_in_multi_item_list(that, Assert)
+  var list = that.List.New()
+  var lastItem = 5
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(4)
+  list.Add(lastItem)
+
+  var actualItem = list.Get(4)
+
+  Assert.AreEqual(lastItem, actualItem)
+
+tests.Add(Get_should_correctly_return_last_item_in_multi_item_list)
+
+
+func Get_should_correctly_return_non_edge_item_in_multi_item_list(that, Assert)
+  var list = that.List.New()
+  var item = 4
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(item)
+  list.Add(5)
+
+  var actualItem = list.Get(3)
+
+  Assert.AreEqual(item, actualItem)
+
+tests.Add(Get_should_correctly_return_non_edge_item_in_multi_item_list)
+
+
+///////////
+/// Set ///
+///////////
+
+
+func Set_should_not_change_count_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  list.Set(1, 5)
+
+  Assert.AreEqual(3, list.GetCount())
+
+tests.Add(Set_should_not_change_count_in_non_empty_list)
+
+
+func Set_should_change_value_of_item_at_index(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  list.Set(1, 5)
+
+  Assert.AreEqual(5, list.Get(1))
+
+tests.Add(Set_should_change_value_of_item_at_index)
+
+
+////////////
+/// Sort ///
+////////////
+
+
+////////////////
+/// AddRange ///
+////////////////
+
+
+func AddRange_should_increase_count_in_empty_list(that, Assert)
+  var list = that.List.New()
+  var range = that.List.New()
+  range.Add(1)
+  range.Add(2)
+  range.Add(3)
+
+  list.AddRange(range)
+
+  Assert.AreEqual(3, list.GetCount())
+
+tests.Add(AddRange_should_increase_count_in_empty_list)
+
+
+func AddRange_should_increase_count_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  var range = that.List.New()
+  range.Add(1)
+  range.Add(2)
+  range.Add(3)
+
+  list.AddRange(range)
+
+  Assert.AreEqual(5, list.GetCount())
+
+tests.Add(AddRange_should_increase_count_in_non_empty_list)
+
+
+func AddRange_should_add_items_to_the_end_of_empty_list(that, Assert)
+  var list = that.List.New()
+  var range = that.List.New()
+  range.Add(1)
+  range.Add(2)
+  range.Add(3)
+
+  list.AddRange(range)
+
+  Assert.AreEqual(range.Get(0), list.Get(0))
+  Assert.AreEqual(range.Get(1), list.Get(1))
+  Assert.AreEqual(range.Get(2), list.Get(2))
+
+tests.Add(AddRange_should_add_items_to_the_end_of_empty_list)
+
+
+func AddRange_should_add_items_to_the_end_of_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  var range = that.List.New()
+  range.Add(1)
+  range.Add(2)
+  range.Add(3)
+
+  list.AddRange(range)
+
+  Assert.AreEqual(range.Get(0), list.Get(2))
+  Assert.AreEqual(range.Get(1), list.Get(3))
+  Assert.AreEqual(range.Get(2), list.Get(4))
+
+tests.Add(AddRange_should_add_items_to_the_end_of_non_empty_list)
+
+
+/////////////
+/// Clear ///
+/////////////
+
+
+func Clear_should_make_count_zero_in_empty_list(that, Assert)
+  var list = that.List.New()
+
+  list.Clear()
+
+  Assert.IsZero(list.GetCount())
+
+tests.Add(Clear_should_make_count_zero_in_empty_list)
+
+
+func Clear_should_make_count_zero_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+
+  list.Clear()
+
+  Assert.IsZero(list.GetCount())
+
+tests.Add(Clear_should_make_count_zero_in_non_empty_list)
+
+
+////////////////
+/// Contains ///
+////////////////
+
+
+func Contains_should_return_false_in_empty_list(that, Assert)
+  var list = that.List.New()
+
+  Assert.IsFalse(list.Contains(5))
+
+tests.Add(Contains_should_return_false_in_empty_list)
+
+
+func Contains_should_return_false_when_list_doesnt_contain_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  Assert.IsFalse(list.Contains(5))
+
+tests.Add(Contains_should_return_false_when_list_doesnt_contain_matching_item)
+
+
+func Contains_should_return_true_when_list_contains_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  Assert.IsTrue(list.Contains(2))
+
+tests.Add(Contains_should_return_true_when_list_contains_matching_item)
+
+
+func Contains_should_return_true_when_list_contains_multiple_matching_items(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(2)
+
+  Assert.IsTrue(list.Contains(2))
+
+tests.Add(Contains_should_return_true_when_list_contains_multiple_matching_items)
+
+
+///////////////
+/// IndexOf ///
+///////////////
+
+
+func IndexOf_should_return_invalid_index_in_empty_list(that, Assert)
+  var list = that.List.New()
+
+  Assert.AreEqual(-1, list.IndexOf(5))
+
+tests.Add(IndexOf_should_return_invalid_index_in_empty_list)
+
+
+func IndexOf_should_return_invalid_index_when_list_doesnt_contain_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  Assert.AreEqual(-1, list.IndexOf(5))
+
+tests.Add(IndexOf_should_return_invalid_index_when_list_doesnt_contain_matching_item)
+
+
+func IndexOf_should_return_index_of_item_when_list_contains_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  Assert.AreEqual(1, list.IndexOf(2))
+
+tests.Add(IndexOf_should_return_index_of_item_when_list_contains_matching_item)
+
+
+func IndexOf_should_return_index_of_first_item_when_list_contains_multiple_matching_items(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(2)
+
+  Assert.AreEqual(1, list.IndexOf(2))
+
+tests.Add(IndexOf_should_return_index_of_first_item_when_list_contains_multiple_matching_items)
+
+
+//////////////
+/// Insert ///
+//////////////
+
+
+func Insert_should_increase_count_in_empty_list(that, Assert)
+  var list = that.List.New()
+
+  list.Insert(0, 1)
+
+  Assert.AreEqual(1, list.GetCount())
+
+tests.Add(Insert_should_increase_count_in_empty_list)
+
+
+func Insert_should_increase_count_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+
+  list.Insert(0, 1)
+
+  Assert.AreEqual(2, list.GetCount())
+
+tests.Add(Insert_should_increase_count_in_non_empty_list)
+
+
+func Insert_should_insert_an_item_in_empty_list(that, Assert)
+  var list = that.List.New()
+  var item = 5
+  var index = 0
+
+  list.Insert(index, item)
+
+  Assert.AreEqual(item, list.Get(index))
+
+tests.Add(Insert_should_insert_an_item_in_empty_list)
+
+
+func Insert_should_insert_first_item_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  var item = 5
+  var index = 0
+
+  list.Insert(index, item)
+
+  Assert.AreEqual(item, list.Get(index))
+
+tests.Add(Insert_should_insert_first_item_in_non_empty_list)
+
+
+func Insert_should_insert_last_item_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  var item = 5
+  var index = 3
+
+  list.Insert(index, item)
+
+  Assert.AreEqual(item, list.Get(index))
+
+tests.Add(Insert_should_insert_last_item_in_non_empty_list)
+
+
+func Insert_should_insert_non_edge_item_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  var item = 5
+  var index = 1
+
+  list.Insert(index, item)
+
+  Assert.AreEqual(item, list.Get(index))
+
+tests.Add(Insert_should_insert_non_edge_item_in_non_empty_list)
+
+
+///////////////////
+/// InsertRange ///
+///////////////////
+
+
+func InsertRange_should_increase_count_in_empty_list(that, Assert)
+  var list = that.List.New()
+  var range = that.List.New()
+  range.Add(1)
+  range.Add(2)
+  range.Add(3)
+
+  list.InsertRange(0, range)
+
+  Assert.AreEqual(3, list.GetCount())
+
+tests.Add(InsertRange_should_increase_count_in_empty_list)
+
+
+func InsertRange_should_increase_count_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  var range = that.List.New()
+  range.Add(1)
+  range.Add(2)
+  range.Add(3)
+
+  list.InsertRange(0, range)
+
+  Assert.AreEqual(4, list.GetCount())
+
+tests.Add(InsertRange_should_increase_count_in_non_empty_list)
+
+
+func InsertRange_should_insert_an_item_in_empty_list(that, Assert)
+  var list = that.List.New()
+  var range = that.List.New()
+  range.Add(1)
+  range.Add(2)
+  range.Add(3)
+
+  list.InsertRange(0, range)
+
+  Assert.AreEqual(range.Get(0), list.Get(0))
+  Assert.AreEqual(range.Get(1), list.Get(1))
+  Assert.AreEqual(range.Get(2), list.Get(2))
+
+tests.Add(InsertRange_should_insert_an_item_in_empty_list)
+
+
+func Insert_should_insert_range_in_the_beginning_of_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  var range = that.List.New()
+  range.Add(1)
+  range.Add(2)
+  range.Add(3)
+
+  list.InsertRange(0, range)
+
+  Assert.AreEqual(range.Get(0), list.Get(0))
+  Assert.AreEqual(range.Get(1), list.Get(1))
+  Assert.AreEqual(range.Get(2), list.Get(2))
+
+tests.Add(Insert_should_insert_range_in_the_beginning_of_non_empty_list)
+
+
+func Insert_should_insert_range_in_the_ending_of_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  var range = that.List.New()
+  range.Add(1)
+  range.Add(2)
+  range.Add(3)
+
+  list.InsertRange(3, range)
+
+  Assert.AreEqual(range.Get(0), list.Get(3))
+  Assert.AreEqual(range.Get(1), list.Get(4))
+  Assert.AreEqual(range.Get(2), list.Get(5))
+
+tests.Add(Insert_should_insert_range_in_the_ending_of_non_empty_list)
+
+
+func Insert_should_insert_range_in_non_edge_position_of_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  var range = that.List.New()
+  range.Add(1)
+  range.Add(2)
+  range.Add(3)
+
+  list.InsertRange(1, range)
+
+  Assert.AreEqual(range.Get(0), list.Get(1))
+  Assert.AreEqual(range.Get(1), list.Get(2))
+  Assert.AreEqual(range.Get(2), list.Get(3))
+
+tests.Add(Insert_should_insert_range_in_non_edge_position_of_non_empty_list)
+
+
+///////////////////
+/// LastIndexOf ///
+///////////////////
+
+
+func LastIndexOf_should_return_invalid_index_in_empty_list(that, Assert)
+  var list = that.List.New()
+
+  Assert.AreEqual(-1, list.LastIndexOf(5))
+
+tests.Add(LastIndexOf_should_return_invalid_index_in_empty_list)
+
+
+func LastIndexOf_should_return_invalid_index_when_list_doesnt_contain_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  Assert.AreEqual(-1, list.LastIndexOf(5))
+
+tests.Add(LastIndexOf_should_return_invalid_index_when_list_doesnt_contain_matching_item)
+
+
+func LastIndexOf_should_return_index_of_item_when_list_contains_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  Assert.AreEqual(1, list.LastIndexOf(2))
+
+tests.Add(LastIndexOf_should_return_index_of_item_when_list_contains_matching_item)
+
+
+func LastIndexOf_should_return_index_of_last_item_when_list_contains_multiple_matching_items(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(2)
+
+  Assert.AreEqual(3, list.LastIndexOf(2))
+
+tests.Add(LastIndexOf_should_return_index_of_last_item_when_list_contains_multiple_matching_items)
+
+
+//////////////
+/// Remove ///
+//////////////
+
+
+func Remove_should_not_decrease_count_in_empty_list(that, Assert)
+  var list = that.List.New()
+
+  var result = list.Remove(5)
+
+  Assert.IsZero(list.GetCount())
+
+tests.Add(Remove_should_not_decrease_count_in_empty_list)
+
+
+func Remove_should_not_decrease_count_in_list_which_doesnt_contain_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  var result = list.Remove(5)
+
+  Assert.AreEqual(3, list.GetCount())
+
+tests.Add(Remove_should_not_decrease_count_in_list_which_doesnt_contain_matching_item)
+
+
+func Remove_should_decrease_count_by_one_in_list_which_contains_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  var result = list.Remove(2)
+
+  Assert.AreEqual(2, list.GetCount())
+
+tests.Add(Remove_should_decrease_count_by_one_in_list_which_contains_matching_item)
+
+
+func Remove_should_decrease_count_by_one_in_list_which_contains_multiple_matching_items(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(2)
+
+  var result = list.Remove(2)
+
+  Assert.AreEqual(3, list.GetCount())
+
+tests.Add(Remove_should_decrease_count_by_one_in_list_which_contains_multiple_matching_items)
+
+
+func Remove_should_return_false_in_empty_list(that, Assert)
+  var list = that.List.New()
+
+  var result = list.Remove(5)
+
+  Assert.IsFalse(result)
+
+tests.Add(Remove_should_return_false_in_empty_list)
+
+
+func Remove_should_return_false_in_list_which_doesnt_contain_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  var result = list.Remove(5)
+
+  Assert.IsFalse(result)
+
+tests.Add(Remove_should_return_false_in_list_which_doesnt_contain_matching_item)
+
+
+func Remove_should_return_true_in_list_which_contains_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  var result = list.Remove(2)
+
+  Assert.IsTrue(result)
+
+tests.Add(Remove_should_return_true_in_list_which_contains_matching_item)
+
+
+func Remove_should_return_true_in_list_which_contains_multiple_matching_items(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(2)
+
+  var result = list.Remove(2)
+
+  Assert.IsTrue(result)
+
+tests.Add(Remove_should_return_true_in_list_which_contains_multiple_matching_items)
+
+
+func Remove_should_remove_matching_item_from_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  var result = list.Remove(2)
+
+  Assert.IsFalse(list.Contains(2))
+
+tests.Add(Remove_should_remove_matching_item_from_list)
+
+
+func Remove_should_remove_only_first_matching_item_from_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(2)
+
+  var result = list.Remove(2)
+
+  Assert.IsTrue(list.Contains(2))
+  Assert.AreEqual(2, list.IndexOf(2))
+
+tests.Add(Remove_should_remove_only_first_matching_item_from_list)
+
+
+/////////////////
+/// RemoveAll ///
+/////////////////
+
+
+func RemoveAll_should_not_decrease_count_in_empty_list(that, Assert)
+  var list = that.List.New()
+
+  var result = list.RemoveAll(5)
+
+  Assert.IsZero(list.GetCount())
+
+tests.Add(RemoveAll_should_not_decrease_count_in_empty_list)
+
+
+func RemoveAll_should_not_decrease_count_in_list_which_doesnt_contain_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  var result = list.RemoveAll(5)
+
+  Assert.AreEqual(3, list.GetCount())
+
+tests.Add(RemoveAll_should_not_decrease_count_in_list_which_doesnt_contain_matching_item)
+
+
+func RemoveAll_should_decrease_count_by_one_in_list_which_contains_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  var result = list.RemoveAll(2)
+
+  Assert.AreEqual(2, list.GetCount())
+
+tests.Add(RemoveAll_should_decrease_count_by_one_in_list_which_contains_matching_item)
+
+
+func RemoveAll_should_decrease_count_by_one_for_each_matching_item_in_list_which_contains_multiple_matching_items(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(2)
+
+  var result = list.RemoveAll(2)
+
+  Assert.AreEqual(2, list.GetCount())
+
+tests.Add(RemoveAll_should_decrease_count_by_one_for_each_matching_item_in_list_which_contains_multiple_matching_items)
+
+
+func RemoveAll_should_return_zero_in_empty_list(that, Assert)
+  var list = that.List.New()
+
+  var result = list.RemoveAll(5)
+
+  Assert.IsZero(result)
+
+tests.Add(RemoveAll_should_return_zero_in_empty_list)
+
+
+func RemoveAll_should_return_zero_in_list_which_doesnt_contain_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  var result = list.RemoveAll(5)
+
+  Assert.IsZero(result)
+
+tests.Add(RemoveAll_should_return_zero_in_list_which_doesnt_contain_matching_item)
+
+
+func RemoveAll_should_return_one_in_list_which_contains_matching_item(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  var result = list.RemoveAll(2)
+
+  Assert.AreEqual(1, result)
+
+tests.Add(RemoveAll_should_return_one_in_list_which_contains_matching_item)
+
+
+func RemoveAll_should_return_removed_item_count_in_list_which_contains_multiple_matching_items(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(2)
+
+  var result = list.RemoveAll(2)
+
+  Assert.AreEqual(2, result)
+
+tests.Add(RemoveAll_should_return_removed_item_count_in_list_which_contains_multiple_matching_items)
+
+
+func RemoveAll_should_remove_matching_item_from_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  var result = list.RemoveAll(2)
+
+  Assert.IsFalse(list.Contains(2))
+
+tests.Add(RemoveAll_should_remove_matching_item_from_list)
+
+
+func RemoveAll_should_remove_all_matching_items_from_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(2)
+
+  var result = list.RemoveAll(2)
+
+  Assert.IsFalse(list.Contains(2))
+
+tests.Add(RemoveAll_should_remove_all_matching_items_from_list)
+
+
+////////////////
+/// RemoveAt ///
+////////////////
+
+
+func RemoveAt_should_decrease_count_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+
+  list.RemoveAt(0)
+
+  Assert.IsZero(list.GetCount())
+
+tests.Add(RemoveAt_should_decrease_count_in_non_empty_list)
+
+
+func RemoveAt_should_remove_first_item_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  var item = 5
+  var index = 0
+  list.Insert(index, item)
+
+  list.RemoveAt(index)
+
+  Assert.IsFalse(list.Contains(item))
+
+tests.Add(RemoveAt_should_remove_first_item_in_non_empty_list)
+
+
+func RemoveAt_should_remove_last_item_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  var item = 5
+  var index = 3
+  list.Insert(index, item)
+
+  list.RemoveAt(index)
+
+  Assert.IsFalse(list.Contains(item))
+
+tests.Add(RemoveAt_should_remove_last_item_in_non_empty_list)
+
+
+func RemoveAt_should_remove_non_edge_item_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  var item = 5
+  var index = 1
+  list.Insert(index, item)
+
+  list.RemoveAt(index)
+
+  Assert.IsFalse(list.Contains(item))
+
+tests.Add(RemoveAt_should_remove_non_edge_item_in_non_empty_list)
+
+
+///////////////////
+/// RemoveRange ///
+///////////////////
+
+
+func RemoveRange_should_decrease_count_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(4)
+  list.Add(5)
+
+  list.RemoveRange(1, 3)
+
+  Assert.AreEqual(2, list.GetCount())
+
+tests.Add(RemoveRange_should_decrease_count_in_non_empty_list)
+
+
+func RemoveRange_should_remove_items_in_range_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.Add(4)
+  list.Add(5)
+
+  list.RemoveRange(1, 3)
+
+  Assert.IsTrue(list.Contains(1))
+  Assert.IsFalse(list.Contains(2))
+  Assert.IsFalse(list.Contains(3))
+  Assert.IsFalse(list.Contains(4))
+  Assert.IsTrue(list.Contains(5))
+
+tests.Add(RemoveRange_should_remove_items_in_range_in_non_empty_list)
+
+
+///////////////
+/// Reverse ///
+///////////////
+
+
+func Reverse_should_not_change_count_in_empty_list(that, Assert)
+  var list = that.List.New()
+
+  list.Reverse()
+
+  Assert.IsZero(list.GetCount())
+
+tests.Add(Reverse_should_not_change_count_in_empty_list)
+
+
+func Reverse_should_not_change_count_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  list.Reverse()
+
+  Assert.AreEqual(3, list.GetCount())
+
+tests.Add(Reverse_should_not_change_count_in_non_empty_list)
+
+
+func Reverse_should_reverse_the_order_of_the_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  list.Reverse()
+
+  Assert.AreEqual(3, list.Get(0))
+  Assert.AreEqual(2, list.Get(1))
+  Assert.AreEqual(1, list.Get(2))
+
+tests.Add(Reverse_should_reverse_the_order_of_the_list)
+
+
+////////////
+/// Sort ///
+////////////
+
+
+func Sort_should_not_change_count_in_empty_list(that, Assert)
+  var list = that.List.New()
+
+  list.Sort()
+
+  Assert.IsZero(list.GetCount())
+
+tests.Add(Sort_should_not_change_count_in_empty_list)
+
+
+func Sort_should_not_change_count_in_non_empty_list(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+
+  list.Sort()
+
+  Assert.AreEqual(3, list.GetCount())
+
+tests.Add(Sort_should_not_change_count_in_non_empty_list)
+
+
+func Sort_should_sort_items_of_the_list_in_ascending_order(that, Assert)
+  var list = that.List.New()
+  list.Add(1)
+  list.Add(3)
+  list.Add(5)
+  list.Add(2)
+  list.Add(4)
+
+  list.Sort()
+
+  Assert.AreEqual(1, list.Get(0))
+  Assert.AreEqual(2, list.Get(1))
+  Assert.AreEqual(3, list.Get(2))
+  Assert.AreEqual(4, list.Get(3))
+  Assert.AreEqual(5, list.Get(4))
+
+tests.Add(Sort_should_sort_items_of_the_list_in_ascending_order)

@@ -1,0 +1,24 @@
+// Tests for functionality of things needed for running TestRunner
+// and initializing StoneScriptLib
+
+func Run()
+
+  // List
+  var list = new StoneScriptLib/__Internal/LinkedList
+
+  // List instantiating
+  ?list.Count() ! 0
+    return "Unexpected List state after instantiating"
+
+  // List adding
+  list.Add(-42)
+  ?list.Count() ! 1 | list.Get(0) ! -42
+    return "Unexpected List state after adding first item"
+  list.Add(200)
+  ?list.Count() ! 2 | list.Get(0) ! -42 | list.Get(1) ! 200
+    return "Unexpected List state after adding second item"
+  list.Add("foo")
+  ?list.Count() ! 3 | list.Get(0) ! -42 | list.Get(1) ! 200 | list.Get(2) ! "foo"
+    return "Unexpected List state after adding third item"
+
+  return null

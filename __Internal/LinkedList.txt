@@ -1,0 +1,65 @@
+// This is a separate reduced implementation of linked list from the one in System
+// Used in TestRunner and StoneScriptLib infrastructure
+// Should be replaced with native array once it's ready
+
+var count = 0
+var first = null
+var last = null
+
+func Count()
+  return count
+
+func Get(index)
+  var node = _GetNodeAt(index)
+  return node.value
+
+func Set(index, value)
+  var node = _GetNodeAt(index)
+  node.value = value
+
+func Add(value)
+  count++
+  var newNode = new StoneScriptLib/__Internal/LinkedListNode
+  newNode.value = value
+  ?Type(last) = "null"
+    first = newNode
+    last = newNode
+    return
+  last.next = newNode
+  newNode.previous = last
+  last = newNode
+
+func RemoveAt(index)
+  ?index = 0
+    ?count = 1
+      Clear()
+      return
+
+    count--
+    var second = first.next
+    second.previous = null
+    first = second
+    return
+
+  count--
+  var item = first
+  for i = 0..index - 1
+    item = item.next
+  var next = item.next
+  var previous = item.previous
+  previous.next = next
+  ?Type(next) ! "null"
+    next.previous = previous
+
+func Clear()
+  count = 0
+  first = null
+  last = null
+
+func _GetNodeAt(index)
+  ?index = 0
+    return first
+  var node = first
+  for i = 0..index - 1
+    node = node.next
+  return node

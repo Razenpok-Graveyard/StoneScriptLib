@@ -1,0 +1,225 @@
+var tests = new StoneScriptLib/__Internal/LinkedList
+
+var StoneScriptLib = import StoneScriptLib/StoneScriptLib
+var TypeCheck = StoneScriptLib.System.TypeCheck
+var List = StoneScriptLib.System.List
+var Float = StoneScriptLib.System.Float
+
+/////////////
+/// IsInt ///
+/////////////
+
+
+func IsInt_should_return_true_for_int(that, Assert)
+  Assert.IsTrue(that.TypeCheck.IsInt(1))
+
+tests.Add(IsInt_should_return_true_for_int)
+
+
+func IsInt_should_return_false_for_string(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsInt("foo"))
+
+tests.Add(IsInt_should_return_false_for_string)
+
+
+func IsInt_should_return_false_for_bool(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsInt(true))
+
+tests.Add(IsInt_should_return_false_for_bool)
+
+
+func IsInt_should_return_false_for_null(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsInt(null))
+
+tests.Add(IsInt_should_return_false_for_null)
+
+
+func IsInt_should_return_false_for_object(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsInt(that))
+
+tests.Add(IsInt_should_return_false_for_object)
+
+
+////////////////
+/// IsString ///
+////////////////
+
+
+func IsString_should_return_true_for_string(that, Assert)
+  Assert.IsTrue(that.TypeCheck.IsString("foo"))
+
+tests.Add(IsString_should_return_true_for_string)
+
+
+func IsString_should_return_false_for_int(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsString(1))
+
+tests.Add(IsString_should_return_false_for_int)
+
+
+func IsString_should_return_false_for_bool(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsString(true))
+
+tests.Add(IsString_should_return_false_for_bool)
+
+
+func IsString_should_return_false_for_null(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsString(null))
+
+tests.Add(IsString_should_return_false_for_null)
+
+
+func IsString_should_return_false_for_object(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsString(that))
+
+tests.Add(IsString_should_return_false_for_object)
+
+
+//////////////
+/// IsBool ///
+//////////////
+
+
+func IsBool_should_return_true_for_bool(that, Assert)
+  Assert.IsTrue(that.TypeCheck.IsBool(true))
+
+tests.Add(IsBool_should_return_true_for_bool)
+
+
+func IsBool_should_return_false_for_int(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsBool(1))
+
+tests.Add(IsBool_should_return_false_for_int)
+
+
+func IsBool_should_return_false_for_string(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsBool("foo"))
+
+tests.Add(IsBool_should_return_false_for_string)
+
+
+func IsBool_should_return_false_for_null(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsBool(null))
+
+tests.Add(IsBool_should_return_false_for_null)
+
+
+func IsBool_should_return_false_for_object(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsBool(that))
+
+tests.Add(IsBool_should_return_false_for_object)
+
+
+//////////////
+/// IsNull ///
+//////////////
+
+
+func IsNull_should_return_true_for_null(that, Assert)
+  Assert.IsTrue(that.TypeCheck.IsNull(null))
+
+tests.Add(IsNull_should_return_true_for_null)
+
+
+func IsNull_should_return_false_for_int(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsNull(1))
+
+tests.Add(IsNull_should_return_false_for_int)
+
+
+func IsNull_should_return_false_for_string(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsNull("foo"))
+
+tests.Add(IsNull_should_return_false_for_string)
+
+
+func IsNull_should_return_false_for_bool(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsNull(true))
+
+tests.Add(IsNull_should_return_false_for_bool)
+
+
+func IsNull_should_return_false_for_object(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsNull(that))
+
+tests.Add(IsNull_should_return_false_for_object)
+
+
+////////////////
+/// IsObject ///
+////////////////
+
+
+func IsObject_should_return_true_for_object(that, Assert)
+  Assert.IsTrue(that.TypeCheck.IsObject(that))
+
+tests.Add(IsObject_should_return_true_for_object)
+
+
+func IsObject_should_return_false_for_bool(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsObject(true))
+
+tests.Add(IsObject_should_return_false_for_bool)
+
+
+func IsObject_should_return_false_for_int(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsObject(1))
+
+tests.Add(IsObject_should_return_false_for_int)
+
+
+func IsObject_should_return_false_for_string(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsObject("foo"))
+
+tests.Add(IsObject_should_return_false_for_string)
+
+
+func IsObject_should_return_false_for_null(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsObject(null))
+
+tests.Add(IsObject_should_return_false_for_null)
+
+
+//////////////
+/// IsType ///
+//////////////
+
+
+func IsType_should_return_true_for_object_of_matching_type(that, Assert)
+  var list = that.List.New()
+
+  Assert.IsTrue(that.TypeCheck.IsType(list, that.List))
+
+tests.Add(IsType_should_return_true_for_object_of_matching_type)
+
+
+func IsType_should_return_false_for_object_of_non_matching_type(that, Assert)
+  var list = that.List.New()
+
+  Assert.IsFalse(that.TypeCheck.IsType(list, that.Float))
+
+tests.Add(IsType_should_return_false_for_object_of_non_matching_type)
+
+
+func IsType_should_return_false_for_int(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsType(1, that.List))
+
+tests.Add(IsType_should_return_false_for_int)
+
+
+func IsType_should_return_false_for_bool(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsType(true, that.List))
+
+tests.Add(IsType_should_return_false_for_bool)
+
+
+func IsType_should_return_false_for_string(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsType("foo", that.List))
+
+tests.Add(IsType_should_return_false_for_string)
+
+
+func IsType_should_return_false_for_null(that, Assert)
+  Assert.IsFalse(that.TypeCheck.IsType(null, that.List))
+
+tests.Add(IsType_should_return_false_for_null)

@@ -1,58 +1,34 @@
-/// @version=1
-
 ///////////////
 /// Imports ///
 ///////////////
 
 var StoneScriptLib = import StoneScriptLib/StoneScriptLib
-var TypeCheck = StoneScriptLib.System.TypeCheck
 
 ////////////
 /// Type ///
 ////////////
 
 func GetType()
-  return StoneScriptLib.System.LinkedListIterator
+  return StoneScriptLib.%CLASS%
 
 //////////////
 /// Fields ///
 //////////////
 
-var _list = null
-var _current = null
-var _node = null
-var _index = -1
-
 ///////////////////
 /// Constructor ///
 ///////////////////
 
-func __ctor(list)
-  _list = list
-  _node = list.GetFirst()
+func __ctor()
+  return
 
 /////////////////////////
 /// Public Properties ///
 /////////////////////////
 
-func GetCurrent()
-  return _current
-
-func GetNode()
-  return _node
-
 ////////////////////////
 /// Public Functions ///
 ////////////////////////
-
-func MoveNext()
-  ?TypeCheck.IsNull(_node)
-    _index = _list.Count + 1
-    return false
-  _index++
-  _current = _node.GetValue()
-  _node = _node.GetNext()
-  return true
 
 /////////////////////////
 /// Private Functions ///

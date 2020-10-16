@@ -1,13 +1,11 @@
-/// @version=1
-
 ///////////////
 /// Imports ///
 ///////////////
 
-var StoneScriptLib = null
+var System = null
 
-func __Import()
-  StoneScriptLib = import StoneScriptLib/__Internal
+func __Import(StoneScriptLib)
+  System = StoneScriptLib.System
 
 /////////////////////
 /// Static Fields ///
@@ -18,6 +16,7 @@ func __Import()
 ///////////////////
 
 func New()
+  return System.__new_List()
 
 ////////////////////////////////
 /// Public Static Properties ///

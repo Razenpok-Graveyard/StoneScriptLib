@@ -1,14 +1,10 @@
-/// @version=1
-
 ///////////////
 /// Imports ///
 ///////////////
 
-var StoneScriptLib = null
 var System = null
 
-func __Import()
-  StoneScriptLib = import StoneScriptLib/__Internal
+func __Import(StoneScriptLib)
   System = StoneScriptLib.System
 
 /////////////////////
@@ -19,10 +15,10 @@ func __Import()
 /// Constructor ///
 ///////////////////
 
-func New(list)
-  var iterator = System.__new_LinkedListIterator()
-  iterator.__ctor(list)
-  return iterator
+func New(value)
+  var reference = System.__new_Reference()
+  reference.__ctor(value)
+  return reference
 
 ////////////////////////////////
 /// Public Static Properties ///

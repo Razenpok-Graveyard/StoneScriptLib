@@ -1,0 +1,4 @@
+var list = null
+var next = null
+var previous = null
+var value = null

@@ -1,0 +1,186 @@
+///////////////
+/// Imports ///
+///////////////
+
+var StoneScriptLib = import StoneScriptLib/StoneScriptLib
+
+////////////
+/// Type ///
+////////////
+
+func GetType()
+  return StoneScriptLib.System.List
+
+//////////////
+/// Fields ///
+//////////////
+
+var _linkedList = new StoneScriptLib/__Internal/LinkedList
+
+///////////////////
+/// Constructor ///
+///////////////////
+
+/////////////////////////
+/// Public Properties ///
+/////////////////////////
+
+func GetCount()
+  return _linkedList.Count()
+
+////////////////////////
+/// Public Functions ///
+////////////////////////
+
+func Add(item)
+  _linkedList.Add(item)
+
+func Get(index)
+  return _linkedList.Get(index)
+
+func Set(index, value)
+  return _linkedList.Set(index, value)
+
+func AddRange(list)
+  ?list.GetCount() = 0
+    return
+  for i = 0..list.GetCount() - 1
+    _linkedList.Add(list.Get(i))
+
+func Clear()
+  _linkedList.Clear()
+
+func Contains(value)
+  return IndexOf(value) >= 0
+
+func IndexOf(value)
+  ?_linkedList.Count() = 0
+    return -1
+  for i = 0.._linkedList.Count() - 1
+    ?_linkedList.Get(i) = value
+      return i
+  return -1
+
+func Insert(index, item)
+  ?index = _linkedList.Count()
+    _linkedList.Add(item)
+    return
+
+  var oldList = _linkedList
+  _linkedList = new StoneScriptLib/__Internal/LinkedList
+
+  ?index = 0
+    _linkedList.Add(item)
+    ?oldList.Count() = 0
+      return
+    for i = 0..oldList.Count() - 1
+      _linkedList.Add(oldList.Get(i))
+    return
+
+  for i = 0..index - 1
+    _linkedList.Add(oldList.Get(i))
+  _linkedList.Add(item)
+  for i = index..oldList.Count() - 1
+    _linkedList.Add(oldList.Get(i))
+
+func InsertRange(index, list)
+  ?list.GetCount() = 0
+    return
+
+  ?index = _linkedList.Count()
+    for i = 0..list.GetCount() - 1
+      _linkedList.Add(list.Get(i))
+    return
+
+  var oldList = _linkedList
+  _linkedList = new StoneScriptLib/__Internal/LinkedList
+
+  ?index = 0
+    for i = 0..list.GetCount() - 1
+      _linkedList.Add(list.Get(i))
+    ?oldList.Count() = 0
+      return
+    for i = 0..oldList.Count() - 1
+      _linkedList.Add(oldList.Get(i))
+    return
+
+  for i = 0..index - 1
+    _linkedList.Add(oldList.Get(i))
+  for i = 0..list.GetCount() - 1
+    _linkedList.Add(list.Get(i))
+  for i = index..oldList.Count() - 1
+    _linkedList.Add(oldList.Get(i))
+
+func LastIndexOf(value)
+  ?_linkedList.Count() = 0
+    return -1
+  for i = _linkedList.Count() - 1..0
+    ?_linkedList.Get(i) = value
+      return i
+  return -1
+
+func Remove(value)
+  ?_linkedList.Count() = 0
+    return false
+  var index = IndexOf(value)
+  ?index < 0
+    return false
+  RemoveAt(index)
+  return true
+
+func RemoveAll(value)
+  var count = 0
+  for i = 0..1
+    ?!Remove(value)
+      return count
+    count++
+    i--
+  return
+
+func RemoveAt(index)
+  _linkedList.RemoveAt(index)
+
+func RemoveRange(index, count)
+  ?count = 0
+    return
+  for i = 0..count - 1
+    RemoveAt(index)
+  return
+
+func Reverse()
+  ?_linkedList.Count() = 0
+    return
+  var count = _linkedList.Count()
+  var oldList = _linkedList
+  _linkedList = new StoneScriptLib/__Internal/LinkedList
+  for i = 0..count - 1
+    _linkedList.Add(oldList.Get(count - i - 1))
+
+// Bubble sort lol
+func Sort()
+  var count = _linkedList.Count()
+  ?count = 0
+    return
+  for i = 0..count - 1
+    var leftCount = 0
+    leftCount = count - i - 1
+    ?leftCount = 0
+      return
+    for j = 0..leftCount - 1
+      var item1 = null
+      var item2 = null
+      var temp = null
+      item1 = _linkedList.Get(j)
+      item2 = _linkedList.Get(j + 1)
+      ?item1 > item2
+        temp = item1
+        _linkedList.Set(j, item2)
+        _linkedList.Set(j + 1, temp)
+
+// TODO
+//func ToArray()
+//  return
+
+/////////////////////////
+/// Private Functions ///
+/////////////////////////

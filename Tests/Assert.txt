@@ -1,0 +1,54 @@
+var currentTest = null
+
+func Fail(message)
+  ?currentTest.isFailed
+    return
+  currentTest.isFailed = true
+  currentTest.failMessage = message
+
+func IsTrue(condition)
+  IsTrueM(condition, null)
+
+func IsTrueM(condition, message)
+  ?!condition
+    var failMessage = FormatExpectedActual(true, false, message)
+    Fail(failMessage)
+    return true
+  return false
+
+func IsFalse(condition)
+  IsFalseM(condition, null)
+
+func IsFalseM(condition, message)
+  ?condition
+    var failMessage = FormatExpectedActual(false, true, message)
+    Fail(failMessage)
+    return true
+  return false
+
+func IsZero(expectedValue)
+  IsZeroM(expectedValue, null)
+
+func IsZeroM(expectedValue, message)
+  ?expectedValue ! 0
+    var failMessage = FormatExpectedActual(expectedValue, 0, message)
+    Fail(failMessage)
+    return true
+  return false
+
+func AreEqual(expectedValue, actualValue)
+  AreEqualM(expectedValue, actualValue, null)
+
+func AreEqualM(expectedValue, actualValue, message)
+  ?actualValue ! expectedValue
+    var failMessage = FormatExpectedActual(expectedValue, actualValue, message)
+    Fail(failMessage)
+    return true
+  return false
+
+func FormatExpectedActual(expectedValue, actualValue, message)
+  var expectedActual = "Expected: " + expectedValue + ". But was: " + actualValue + "."
+  ?Type(message) = "null" | message = "" | message = "_"
+    return expectedActual
+  :
+    return message + ". " + expectedActual

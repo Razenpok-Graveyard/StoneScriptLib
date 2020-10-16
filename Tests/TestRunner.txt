@@ -1,0 +1,94 @@
+disable hud
+disable loadout print
+disable level
+
+var COLOR_GREEN = #32da5a
+var COLOR_RED = #ff2222
+
+var _isStarted = false
+var _internalsTestResult = null
+var _tests = null
+var _currentLine = 0
+var _failedTests = null
+
+
+func Start()
+  var essentialsTest = import StoneScriptLib/Tests/InternalsTest
+  _internalsTestResult = essentialsTest.Run()
+  ?Type(_internalsTestResult) = "string"
+    return
+  _isStarted = true
+  var index = new StoneScriptLib/Tests/TestIndex
+  _tests = index.tests
+  RunTests()
+
+
+func RunTests()
+  var Assert = import StoneScriptLib/Tests/Assert
+  _failedTests = new StoneScriptLib/__Internal/LinkedList
+  ?_tests.Count() = 0
+    return
+  for i = 0.._tests.Count() - 1
+    var test = null
+    test = _tests.Get(i)
+    Assert.currentTest = test
+    test.testFunction(test.testClass, Assert)
+    Assert.currentTest = null
+    ?test.isFailed
+      _failedTests.Add(test)
+
+Start()
+
+
+func Update()
+  ?key = backEnd
+    loc.Leave()
+
+  _currentLine = 0
+
+  ?!_isStarted
+    WriteLineColor(COLOR_RED, "Internals Test failed:")
+    WriteLineColor(COLOR_RED, _internalsTestResult)
+    return
+
+  WriteLine("Executed " + _tests.Count() + " tests")
+
+  var failCount = _failedTests.Count()
+  ?failCount = 0
+    WriteLineColor(COLOR_GREEN, "All tests passed")
+  :
+    var message = failCount + " tests failed"
+    var outputCount = Min(failCount, 5)
+    ?outputCount ! failCount
+      message = message + " (showing first " + outputCount + " errors)"
+    WriteLineColor(COLOR_RED, message)
+    WriteLine("")
+    for i = 0..outputCount - 1
+      WriteTestResult(_failedTests.Get(i))
+
+  WriteLine("")
+  WriteLine("Press X to exit...")
+
+
+func Min(value1, value2)
+  ?value1 < value2
+    return value1
+  :
+    return value2
+
+
+func WriteTestResult(test)
+  WriteLineColor(COLOR_RED, "Class: " + test.testClass)
+  WriteLineColor(COLOR_RED, "Test: " + test.testFunction)
+  WriteLineColor(COLOR_RED, test.failMessage)
+  WriteLine("")
+
+
+func WriteLine(value)
+  >`0,@_currentLine@,@value@
+  _currentLine++
+
+
+func WriteLineColor(color, value)
+  >`0,@_currentLine@,@color@,@value@
+  _currentLine++

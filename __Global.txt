@@ -1,0 +1,7 @@
+var __namespaces = new StoneScriptLib/__Internal/LinkedList
+
+func DeclareNamespace(namespace)
+  __namespaces.Add(namespace)
+  return namespace
+
+var System = DeclareNamespace(import StoneScriptLib/System/__Namespace)

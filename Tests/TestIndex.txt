@@ -1,0 +1,14 @@
+var tests = new StoneScriptLib/__Internal/LinkedList
+
+func ImportTests(testClass)
+  var tests = testClass.tests
+  for i = 0..tests.Count() - 1
+    var testData = null
+    testData = new StoneScriptLib/Tests/TestData
+    testData.testClass = testClass
+    testData.testFunction = tests.Get(i)
+    this.tests.Add(testData)
+
+
+ImportTests(import StoneScriptLib/Tests/System/List)
+ImportTests(import StoneScriptLib/Tests/System/TypeCheck)
