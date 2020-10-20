@@ -15,24 +15,18 @@ func GetType()
 /// Fields ///
 //////////////
 
-var _value = null
+var value = null
 
 ///////////////////
 /// Constructor ///
 ///////////////////
 
 func __ctor(value)
-  _value = value
+  this.value = value
 
 /////////////////////////
 /// Public Properties ///
 /////////////////////////
-
-func GetValue()
-  return _value
-
-func SetValue(value)
-  _value = value
 
 ////////////////////////
 /// Public Functions ///

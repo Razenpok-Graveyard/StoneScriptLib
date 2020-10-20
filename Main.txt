@@ -1,2 +1,0 @@
-var runner = import StoneScriptLib/Tests/TestRunner
-runner.Update()
