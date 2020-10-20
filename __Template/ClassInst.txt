@@ -9,7 +9,7 @@ var StoneScriptLib = import StoneScriptLib/StoneScriptLib
 ////////////
 
 func GetType()
-  return StoneScriptLib.%CLASS%
+  return StoneScriptLib.System.%CLASS%
 
 //////////////
 /// Fields ///

@@ -13,3 +13,9 @@ func __new_List()
 var Reference = DeclareType(import StoneScriptLib/System/Reference)
 func __new_Reference()
   return new StoneScriptLib/System/ReferenceInst
+
+var Float = DeclareType(import StoneScriptLib/System/Float)
+func __new_Float()
+  return new StoneScriptLib/System/FloatInst
+
+var Math = DeclareType(import StoneScriptLib/System/Math)

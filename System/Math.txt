@@ -1,0 +1,52 @@
+///////////////
+/// Imports ///
+///////////////
+
+func __Import(StoneScriptLib)
+  return
+
+/////////////////////
+/// Static Fields ///
+/////////////////////
+
+////////////////////////////////
+/// Public Static Properties ///
+////////////////////////////////
+
+///////////////////////////////
+/// Public Static Functions ///
+///////////////////////////////
+
+////////////////////////////////
+/// Private Static Functions ///
+////////////////////////////////
+
+func Abs(value)
+  ?value < 0
+    return -value
+  :
+    return value
+
+
+func Clamp(value, min, max)
+  return value
+
+
+func CopySign(x, y)
+  return x
+
+
+func Max(value1, value2)
+  return value1
+
+
+func Min(value1, value2)
+  return value1
+
+
+func Pow(x, y)
+  return x
+
+
+func Sign(value)
+  return value

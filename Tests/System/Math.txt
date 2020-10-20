@@ -1,0 +1,20 @@
+var tests = new StoneScriptLib/__Internal/LinkedList
+
+var StoneScriptLib = import StoneScriptLib/StoneScriptLib
+var Math = StoneScriptLib.System.Math
+
+///////////
+/// Abs ///
+///////////
+
+
+func Abs_should_return_positive_result_if_value_is_positive(that, Assert)
+  Assert.AreEqual(1, that.Math.Abs(1))
+
+tests.Add(Abs_should_return_positive_result_if_value_is_positive)
+
+
+func Abs_should_return_positive_result_if_value_is_negative(that, Assert)
+  Assert.AreEqual(1, that.Math.Abs(-1))
+
+tests.Add(Abs_should_return_positive_result_if_value_is_negative)

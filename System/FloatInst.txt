@@ -1,0 +1,139 @@
+///////////////
+/// Imports ///
+///////////////
+
+var StoneScriptLib = import StoneScriptLib/StoneScriptLib
+var TypeCheck = StoneScriptLib.System.TypeCheck
+var Float = StoneScriptLib.System.Float
+
+////////////
+/// Type ///
+////////////
+
+func GetType()
+  return StoneScriptLib.System.Float
+
+//////////////
+/// Fields ///
+//////////////
+
+var _value = 0
+
+///////////////////
+/// Constructor ///
+///////////////////
+
+func __ctor(value)
+  ?TypeCheck.IsNull(value)
+    return
+
+  :?TypeCheck.IsInt(value)
+    _FromInt(value)
+
+  :?TypeCheck.IsString(value)
+    _FromString(value)
+
+  :?TypeCheck.IsType(value, Float)
+    _FromFloat(value)
+
+/////////////////////////
+/// Public Properties ///
+/////////////////////////
+
+////////////////////////
+/// Public Functions ///
+////////////////////////
+
+func Add(value)
+  var float = Float.New(value)
+  return Float._New(_value + float._value)
+
+func Subtract(value)
+  var float = Float.New(value)
+  return Float._New(_value - float._value)
+
+func Multiply(value)
+  var float = Float.New(value)
+  return Float._New(_value * float._value)
+
+func Divide(value)
+  var float = Float.New(value)
+  return Float._New(_value / float._value)
+
+func Abs()
+  ?_value < 0
+    return Float._New(-_value)
+  :
+    return Float._New(_value)
+
+func Sign()
+  var sign = 0
+  ?_value > 0
+    sign = 1
+  :?_value < 0
+    sign = -1
+  return sign
+
+func ToString()
+  var str = ""
+
+  ?Sign() < 0
+    str = "-"
+
+  var abs = Abs()
+  var absVal = abs._value
+
+  ?absVal < 10
+    return str + "0.0" + absVal
+  ?absVal < 100
+    return str + "0." + absVal
+
+  var v = absVal / 100
+  var d = absVal - v * 100
+  ?d = 0
+    str = str + v + ".00"
+  :?d < 10
+    str = str + v + ".0" + d
+  :
+    str = str + v + "." + d
+  return str
+
+/////////////////////////
+/// Private Functions ///
+/////////////////////////
+
+func _FromInt(value)
+  _value = value * 100
+
+func _FromString(value)
+  var indexOf = string.IndexOf(value, "-")
+  var isNegative = false
+  ?indexOf = 0
+    isNegative = true
+
+  indexOf = string.IndexOf(value, ".")
+  ?indexOf < 0
+    FromInt(int.Parse(value))
+    return
+
+  var integer = 0
+  ?indexOf > 0
+    integer = int.Parse(string.Sub(value, 0, indexOf))
+
+  var dec = string.Sub(value, indexOf + 1)
+
+  var len = string.Size(dec)
+  ?len > 2
+    dec = string.Sub(dec, 0, 2)
+
+  var decimal = int.Parse(dec)
+  ?len = 1
+    decimal = decimal * 10
+
+  ?isNegative
+    _value = integer * 100 - decimal
+  :
+    _value = integer * 100 + decimal
+
+func _FromFloat(value)
+  _value = value._value

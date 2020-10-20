@@ -10,5 +10,6 @@ func ImportTests(testClass)
     this.tests.Add(testData)
 
 
+ImportTests(import StoneScriptLib/Tests/System/Math)
 ImportTests(import StoneScriptLib/Tests/System/List)
 ImportTests(import StoneScriptLib/Tests/System/TypeCheck)
